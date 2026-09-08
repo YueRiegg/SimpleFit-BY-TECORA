@@ -36,10 +36,10 @@ def menu_inicial():
 
 def carregar_ou_criar_perfil(usuario):
     dados_perfil = buscar_perfil(usuario["email"])
-
+#            ^ verifica se ele deseja usar o perfil e rotina salvo anteriormente.
     if dados_perfil:
         print(f"\nBem-vindo de volta, {usuario['nome']}!")
-#            verifica se ele deseja usar o perfil e rotina salvo anteriormente.
+
         usar_existente = input("Deseja usar seu perfil e rotina salvos? (sim/nao): ").strip().lower()
 #                            ↓ verifica se comeca com s, e como o input foi definido como .lower(), se o usuario
 # escrever SIMM ele tambem   ↓   daria certo
