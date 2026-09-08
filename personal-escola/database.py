@@ -8,11 +8,11 @@ CAMINHO_USUARIOS = os.path.join(PASTA_DADOS, "usuarios.json")
 CAMINHO_PERFIS = os.path.join(PASTA_DADOS, "perfis.json")
 
 
-def _garantir_pasta():
+def garantir_pasta():
     os.makedirs(PASTA_DADOS, exist_ok=True)
 #        ^ garante que a pasta de dados existe. 
 
-def _ler_json(caminho, padrao):
+def ler_json(caminho, padrao):
 #                ^ parametros da funcao.
     if not os.path.exists(caminho):
         return padrao
@@ -28,8 +28,8 @@ def _ler_json(caminho, padrao):
         return padrao
 
 
-def _escrever_json(caminho, dados):
-    _garantir_pasta()
+def escrever_json(caminho, dados):
+    garantir_pasta()
     with open(caminho, "w", encoding="utf-8") as f:
 #                       ^ ao inves de ler (r) ele vai escrever (w).
         json.dump(dados, f, ensure_ascii=False, indent=2)
@@ -37,11 +37,11 @@ def _escrever_json(caminho, dados):
 
 
 def carregar_usuarios():
-    return _ler_json(CAMINHO_USUARIOS, [])
+    return ler_json(CAMINHO_USUARIOS, [])
 #             ^ auto-explicativo.
 
 def salvar_usuarios(usuarios):
-    _escrever_json(CAMINHO_USUARIOS, usuarios)
+    escrever_json(CAMINHO_USUARIOS, usuarios)
 #        chama a funcao de escrever as credenciais no json.
 
 def buscar_usuario_por_email(email):
@@ -64,11 +64,11 @@ def adicionar_usuario(usuario_dict):
 
 
 def carregar_perfis():
-    return _ler_json(CAMINHO_PERFIS, {})
+    return ler_json(CAMINHO_PERFIS, {})
 #                                     ^ faz o codigo retornar o dicionario vazio caso algo de errado.
 
 def salvar_perfis(perfis):
-    _escrever_json(CAMINHO_PERFIS, perfis)
+    escrever_json(CAMINHO_PERFIS, perfis)
 
 
 def salvar_perfil(email, perfil_dict):
