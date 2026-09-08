@@ -1,15 +1,18 @@
 import hashlib
-# essa biblioteca transforma o dado em um valor fixo e praticamente não dá pra reverter para descobrir o original.
+# ^ vou usar essa biblioteca para transformar dados em um valor fixo e praticamente irreversível para descobrir o original.
 import re
-# re é usada para procurar, validar e manipular padrões dentro de textos usando expressões (que seria o regex).
+# ^ re é usada para procurar, validar e manipular padrões dentro de textos usando expressões (que seria o regex).
 from database import adicionar_usuario, buscar_usuario_por_email
 regex_email = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 # ^ tá verificando se o email foi escrito de forma correta, ex: teste gmail.com não daria certo mas teste@gmail.com daria.
 # ↓  transformando a senha em hash (copiei a seta do google pois não achei uma seta pra usar).
 def hash_senha(senha: str) -> str:
     return hashlib.sha256(senha.encode("utf-8")).hexdigest()
-#                            ↓ o None serve pra não precisar de credenciais pra chamar um método.
+#                                                    ^ converte de binário para texto legivel.
+#                                 ^ converte a string da senha em bytes (necessário para a biblioteca hashlib)
+
 class Usuario:
+#                            ↓ o None serve pra não precisar de credenciais pra chamar um método.
     def __init__(self, nome=None, contato=None, email=None, idade=None, senha=None):
         self.nome = nome
         self.contato = contato
