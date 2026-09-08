@@ -27,4 +27,37 @@ def escrever_json(caminho, dados):
     with open(caminho, "w", encoding="utf-8") as f:
 #                       ^ ao invés de ler (r) ele vai escrever (w).
         json.dump(dados, f, ensure_ascii=False, indent=2)
-#            ^ pega os dados em python e escreve em
+#            ^ pega os dados em python e escreve em um arquivo json.
+def carregar_usuarios():
+    return ler_json(CAMINHO_USUARIOS, [])
+#             ^ autoexplicativo.
+def salvar_usuarios(usuarios):
+    escrever_json(CAMINHO_USUARIOS, usuarios)
+#        chama a função de escrever as credenciais no json.
+def buscar_usuario_por_email(email):
+    email = email.lower().strip()
+#                   ^ transforma a string em minúscula.
+#            ↓ o for serve pra passar por cada usuário no arquivo json
+    for usuario in carregar_usuarios():
+#                ↓ se o usuário for encontrado ele retorna usuario, mas caso não ele retorna None.
+        if usuario["email"].lower() == email:
+            return usuario
+    return None
+#                        ↓ o dicionário que guarda as informações do usuário.
+def adicionar_usuario(usuario_dict):
+    usuarios = carregar_usuarios()
+    usuarios.append(usuario_dict)
+#              ^ adiciona as credenciais na lista ao invés de sobrescrever.
+    salvar_usuarios(usuarios)
+def carregar_perfis():
+    return ler_json(CAMINHO_PERFIS, {})
+#                                     ^ faz o código retornar o dicionário vazio caso algo dê errado.
+def salvar_perfis(perfis):
+    escrever_json(CAMINHO_PERFIS, perfis)
+def salvar_perfil(email, perfil_dict):
+    perfis = carregar_perfis()
+    perfis[email.lower().strip()] = perfil_dict
+    salvar_perfis(perfis)
+def buscar_perfil(email):
+    return carregar_perfis().get(email.lower().strip())
+    #                         ^ serve para pegar apenas o valor associado ao email, ao invés da lista toda.
