@@ -22,7 +22,7 @@ class Personal(Pessoa):
 
  
     @staticmethod
-#        ^ faz nao precisar de um objeto pra executar o metodo.
+#        ^ faz não precisar de um objeto pra executar o método.
     def ler_dias(texto):
         return [d.strip().lower() for d in texto.split(",") if d.strip()]
 #                     ^ Transforma um texto separado por vírgulas em uma lista limpa, sem espaços, tudo minúsculo e sem itens vazios.
@@ -33,7 +33,7 @@ class Personal(Pessoa):
             horario = input("Qual o horário das aulas? (ex: 19h-22h): ").strip()
             for dia in self.ler_dias(dias):
                 self.escola[dia] = horario
-#            ^ passa por cada dia que o usuario colocou e usa a funcao de ler_dias(dias) pra colocar tudo em horario.
+#            ^ passa por cada dia que o usuário colocou e usa a função ler_dias(dias) pra colocar tudo em horário.
     def configurar_trabalho(self):
         resposta = input("\nVocê trabalha? (sim/nao): ").strip().lower()
         if resposta.startswith("s"):
@@ -62,7 +62,7 @@ class Personal(Pessoa):
 
         for dia in DIAS_SEMANA:
             print("\n" + dia.upper())
-#                               ^ faz tudo ficar em maiusuculo
+#                               ^ faz tudo ficar em maiúsculo
             ocupado = False
 
             if dia in self.escola:
@@ -84,27 +84,19 @@ class Personal(Pessoa):
 
 
     def to_dict(self):
-#        ^ pega o objeto e transforma em dicionario pra json (nosso banco de dados atual)
+#        ^ pega o objeto e transforma em dicionário pra json (nosso banco de dados atual)
         return {"nome": self.nome, "idade": self.idade, "altura": self.altura, "peso": self.peso, "objetivo": self.objetivo,
             "academia": self.academia,"diaTreino": self.diaTreino, "horarios": self.horarios, "escola": self.escola, "trabalho": self.trabalho,}
 
     @classmethod
-#        ^ faz o metodo receber a classe mas nao precisar de objeto. diferente do static que faz nao precisar
-#                de classe e nem objeto.
+#        ^ faz o método receber a classe mas não precisar de objeto. diferente do static, que faz não precisar
+#                de classe e nem de objeto.
 #                  
     def from_dict(cls, dados):
-#           ^ transforma o dicionario em objeto da classe.
+#           ^ transforma o dicionário em objeto da classe.
         perfil = cls(dados["nome"], dados["idade"], dados["altura"], dados["peso"], dados["objetivo"])
-#         ^ cria um objeto com os dados obrigatorios.
+#         ^ cria um objeto com os dados obrigatórios.
         perfil.academia = dados.get("academia", "nao")
-#                ^ caso academia nao exista ele usa "nao"
+#                ^ caso academia não exista ele usa "nao"
         perfil.diaTreino = dados.get("diaTreino", [])
 #                            ^ arquivo onde ficam os dados
-        perfil.horarios = dados.get("horarios", "")
-#                                ^ pega o item do arquivo "dados" (nessa linha ele pega os horarios)
-        perfil.escola = dados.get("escola", {})
-        perfil.trabalho = dados.get("trabalho", {})
-#        {} = dicionario vazio
-#        [] = lista vazia
-#        "" = string vazia
-        return perfil
