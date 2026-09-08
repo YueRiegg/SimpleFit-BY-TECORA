@@ -25,7 +25,7 @@ class Personal(Pessoa):
 #        ^ faz não precisar de um objeto pra executar o método.
     def ler_dias(texto):
         return [d.strip().lower() for d in texto.split(",") if d.strip()]
-#                     ^ Transforma um texto separado por vírgulas em uma lista limpa, sem espaços, tudo minúsculo e sem itens vazios.
+#                     ^ transforma um texto separado por vírgulas em uma lista limpa, sem espaços, tudo minúsculo e sem itens vazios.
     def configurar_escola(self):
         resposta = input("\nVocê estuda? (sim/nao): ").strip().lower()
         if resposta.startswith("s"):
@@ -84,14 +84,13 @@ class Personal(Pessoa):
 
 
     def to_dict(self):
-#        ^ pega o objeto e transforma em dicionário pra json (nosso banco de dados atual)
+#          ^ pega o objeto e transforma em dicionário pra json (nosso banco de dados atual)
         return {"nome": self.nome, "idade": self.idade, "altura": self.altura, "peso": self.peso, "objetivo": self.objetivo,
             "academia": self.academia,"diaTreino": self.diaTreino, "horarios": self.horarios, "escola": self.escola, "trabalho": self.trabalho,}
 
     @classmethod
 #        ^ faz o método receber a classe mas não precisar de objeto. diferente do static, que faz não precisar
-#                de classe e nem de objeto.
-#                  
+#                de classe e nem de objeto.               
     def from_dict(cls, dados):
 #           ^ transforma o dicionário em objeto da classe.
         perfil = cls(dados["nome"], dados["idade"], dados["altura"], dados["peso"], dados["objetivo"])
