@@ -12,7 +12,7 @@ if CHAVE_API:
     from groq import Groq
     cliente_ia = Groq(api_key=CHAVE_API)
 def falar(mensagem, pessoa):
-    if _cliente_ia is None:
+    if cliente_ia is None:
         return (
             "Erro: nenhuma chave de API da Groq foi encontrada.\n"
             "Configure GROQ_API_KEY no arquivo .env (veja .env.example) "
@@ -57,10 +57,10 @@ Mensagem:
         )
 #                          ↓ é uma lista de possíveis respostas geradas pela IA (o 0 significa que é a primeira).
         return resposta.choices[0].message.content
-#                                    ^ pega o conteúdo da resposta.
+#                                    ^ retorna o conteúdo da resposta.
     except Exception as erro:
         return "Erro na IA: " + str(erro)
-#                    ^ em caso de erros, não fazer o sistema todo parar.
+#                    ^ em caso de erros
 def dieta(pessoa):
     mensagem = """
 Monte um plano de alimentação equilibrada
