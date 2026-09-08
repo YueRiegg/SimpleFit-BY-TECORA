@@ -29,7 +29,7 @@ def menu_inicial():
             print("Opção inválida.")
 def carregar_ou_criar_perfil(usuario):
     dados_perfil = buscar_perfil(usuario["email"])
-#            ^ verifica se ele deseja usar o perfil e rotina salvos anteriormente.
+#            ^ busca o email da conta e caso não exista, ele só continua para a parte de criar um perfil.
     if dados_perfil:
         print(f"\nBem-vindo de volta, {usuario['nome']}!")
         usar_existente = input("Deseja usar seu perfil e rotina salvos? (sim/nao): ").strip().lower()
